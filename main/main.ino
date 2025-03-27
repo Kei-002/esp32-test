@@ -130,6 +130,8 @@ void setup() {
 
     pinMode(FAN_PIN, OUTPUT);
     digitalWrite(FAN_PIN, LOW);  // Fan off initially
+
+    setupWifi();
 }
 
 void loop() {
