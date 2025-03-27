@@ -3,42 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESP32 Plant Monitoring System</title>
-
-    <link rel="stylesheet" href="/bootstrap.min.css">
-    <link rel="stylesheet" href="/style.css">
-
+    <title>Plant Monitoring System</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
-    <div class="container">
-        <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div class="theme-switch-wrapper position-fixed top-0 end-0 p-3">
+        <label class="theme-switch" for="darkModeCheckbox">
+            <input type="checkbox" id="darkModeCheckbox" />
+            <span class="slider round">
+                <span class="emoji-switch">🌙</span>
+                <span class="emoji-switch">☀️</span>
+            </span>
+        </label>
     </div>
 
-    <!-- Scripts -->
-    <script src="/bootstrap.bundle.min.js"></script>
-    <script src="/script.js"></script>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Plant Monitoring System 🌱</h1>
+        
+        <div class="row" id="sensors-grid">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="emoji">🌡️</span>
+                            Temperature
+                        </h5>
+                        <p class="card-text">
+                            <span id="temperature" class="sensor-value">--</span>
+                            <span class="unit">°C</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="emoji">💧</span>
+                            Humidity
+                        </h5>
+                        <p class="card-text">
+                            <span id="humidity" class="sensor-value">--</span>
+                            <span class="unit">%</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="emoji">🌱</span>
+                            Soil Moisture
+                        </h5>
+                        <p class="card-text">
+                            <span id="moisture" class="sensor-value">--</span>
+                            <span class="unit">%</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="emoji">☀️</span>
+                            Light Level
+                        </h5>
+                        <p class="card-text">
+                            <span id="light" class="sensor-value">--</span>
+                            <span class="unit">%</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="emoji">💦</span>
+                            Water Pump Status
+                        </h5>
+                        <p class="card-text">
+                            <span id="pump" class="sensor-value">--</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="emoji">💡</span>
+                            Grow Lights Status
+                        </h5>
+                        <p class="card-text">
+                            <span id="growlights" class="sensor-value">--</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="emoji">🪟</span>
+                            Window Status
+                        </h5>
+                        <p class="card-text">
+                            <span id="window" class="sensor-value">--</span>
+                        </p>
+                        <div class="mt-2">
+                            <button class="btn btn-sm btn-primary" onclick="toggleWindow()">Toggle Window</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="emoji fan-emoji">⚡</span>
+                            Fan Status
+                        </h5>
+                        <p class="card-text">
+                            <span id="fan" class="sensor-value">--</span>
+                        </p>
+                        <div class="mt-2">
+                            <button class="btn btn-sm btn-primary" onclick="toggleFan()">Toggle Fan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="emoji">📝</span>
+                            Watering Log
+                        </h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date & Time</th>
+                                        <th scope="col">Soil Moisture Before Watering</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="watering-log">
+                                    <!-- Watering log entries will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
