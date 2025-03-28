@@ -54,6 +54,11 @@ void setupWifi() {
 
   // Serve static files
   server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
+  server.serveStatic("/styles.css", SPIFFS, "/styles.css");
+  server.serveStatic("/script.js", SPIFFS, "/script.js");
+  server.serveStatic("/bootstrap.min.css", SPIFFS, "/bootstrap.min.css");
+  server.serveStatic("/bootstrap.min.js", SPIFFS, "/bootstrap.min.js");
+  server.serveStatic("/jquery-3.7.1.min.js", SPIFFS, "/jquery-3.7.1.min.js");
 
   // Sensor data endpoint
   server.on("/data", HTTP_GET, [](AsyncWebServerRequest *request){
@@ -169,4 +174,3 @@ void loop() {
 
 // For wifi
 // https://randomnerdtutorials.com/esp32-web-server-spiffs-spi-flash-file-system/#:~:text=With%20SPIFFS%2C%20you%20can%20write,documented%20on%20its%20GitHub%20page.
-
